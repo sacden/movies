@@ -1,11 +1,11 @@
-// reducer.js
+import { Movie, State, Action } from "../types/types";
 
-const defaultState = {
+const defaultState: State = {
   movies: {},
   favorites: {},
 };
 
-const reducer = (state = defaultState, action) => {
+const reducer = (state = defaultState, action: Action) => {
   switch (action.type) {
     case "GET_MOVIES":
       return { ...state, movies: action.payload };
@@ -19,8 +19,7 @@ const reducer = (state = defaultState, action) => {
         },
       };
     case "DELETE_FROM_FAVORITES":
-      const updatedFavoritesMovies = state.favorites.Search.filter((movie) => movie.imdbID !== action.payload.imdbID);
-
+      const updatedFavoritesMovies = state.favorites.Search ? state.favorites.Search.filter((movie: Movie) => movie.imdbID !== action.payload.imdbID) : [];
       return {
         ...state,
         favorites: {

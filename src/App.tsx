@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Search from "./Search";
-import MovieDetail from "./MovieDetail";
-import Favorites from "./Favorites";
+import Search from "./components/Search";
+import MovieDetail from "./components/MovieDetail";
+import Favorites from "./components/Favorites";
 
 import "./App.css";
 

@@ -6,23 +6,23 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
-
-import { getMovies, addToFavorites, deleteFromFavorites } from "./redux/actions";
 import Star from "@mui/icons-material/Star";
 import StarOutline from "@mui/icons-material/StarOutline";
 
-const Search = () => {
+import { getMovies, addToFavorites, deleteFromFavorites } from "../redux/actions";
+
+import { Movie, State } from "../types/types";
+
+const Search: React.FC = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  //const [movies, setMovies] = useState({});
   const [searchWord, setSearchWord] = useState("");
   const [favorite, setFavorite] = useState(true);
 
-  const movies = useSelector((state) => state.movies);
-  const favorites = useSelector((state) => state.favorites);
+  const movies = useSelector((state: State) => state.movies);
+  const favorites = useSelector((state: State) => state.favorites);
   const dispatch = useDispatch();
 
   const searchMovies = () => {
@@ -31,8 +31,8 @@ const Search = () => {
       .then((data) => dispatch(getMovies(data)));
   };
 
-  const handleAddToFavorites = (movie) => {
-    const isFavorite = favorites?.Search?.some((favoriteMovie) => favoriteMovie.imdbID === movie.imdbID);
+  const handleAddToFavorites = (movie: Movie) => {
+    const isFavorite = favorites?.Search?.some((favoriteMovie: Movie) => favoriteMovie.imdbID === movie.imdbID);
     if (isFavorite) {
       dispatch(deleteFromFavorites(movie));
     } else {
@@ -54,12 +54,12 @@ const Search = () => {
         </Button>
 
         {movies.Search &&
-          movies.Search.map((movie, id) => (
+          movies.Search.map((movie: Movie) => (
             <Card variant="outlined" key={movie.imdbID}>
               <CardHeader title={movie.Title} />
 
               <Button variant="contained" color="primary" onClick={() => handleAddToFavorites(movie)}>
-                {favorite === false ? <Star /> : <StarOutline />} Add to favorites
+                {favorite === false ? <Star /> : <StarOutline />}
               </Button>
 
               <Link to={`/movie/${movie.imdbID}`}>
@@ -67,8 +67,6 @@ const Search = () => {
               </Link>
             </Card>
           ))}
-
-        <div>{JSON.stringify(favorites)}</div>
       </Box>
     </Container>
   );
