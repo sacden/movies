@@ -4,8 +4,10 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
 
-import { Movie, State } from "../types/types";
+import { Movie, State } from "../../types/types";
+import styles from "./MovieDetail.module.scss";
 
 function MovieDetail() {
   const { imdbID } = useParams<{ imdbID?: string }>();
@@ -20,16 +22,17 @@ function MovieDetail() {
 
   return (
     <div>
-      <button onClick={() => navigate(-1)}>Back</button>
-      <h2>{movie.Title}</h2>
+      <Button variant="contained" color="primary" onClick={() => navigate(-1)}>
+        Back
+      </Button>
 
-      <Card variant="outlined">
+      <Card className={styles.container} variant="outlined">
         <CardHeader title={movie.Title} />
-        <CardMedia component="img" image={movie.Poster} alt={movie.Title} />
         <CardContent>
           <div>Year: {movie?.Year}</div>
           <div>Type: {movie?.Type}</div>
         </CardContent>
+        <CardMedia component="img" image={movie.Poster} alt={movie.Title} />
       </Card>
     </div>
   );

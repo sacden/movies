@@ -7,8 +7,9 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
+import Button from "@mui/material/Button";
 
-import { Movie, State } from "../types/types";
+import { Movie, State } from "../../types/types";
 
 function Favorites() {
   let navigate = useNavigate();
@@ -16,7 +17,9 @@ function Favorites() {
 
   return (
     <div>
-      <button onClick={() => navigate(-1)}>Back</button>
+      <Button variant="contained" color="primary" onClick={() => navigate(-1)}>
+        Back
+      </Button>
       <Container maxWidth="sm">
         <Box sx={{ my: 4 }}>
           {favorites.Search &&

@@ -1,0 +1,61 @@
+.searchBox {
+  min-width: 100%;
+}
+.textField {
+  width: 80%;
+  border: none;
+  border-radius: 0.4rem;
+  box-shadow: inset 0.1rem 0.1rem 0.3rem #c8d0e7, inset -0.1rem -0.1rem 0.3rem #fff;
+  background: none;
+  font-family: inherit;
+  color: #9baacf;
+  padding-left: 10px;
+  margin-right: 10px;
+}
+
+.searchButton {
+  color: #9baacf;
+  width: 20%;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.movieCard {
+  width: calc(33.333% - 20px);
+  margin: 10px;
+  box-sizing: border-box;
+  background-color: #eff0f4;
+}
+
+.header {
+  font-size: 10px;
+}
+
+.cardMediaWrapper {
+  position: relative;
+  background-color: #eff0f4;
+}
+
+.MuiCardMedia {
+  width: 100%;
+  height: auto;
+}
+
+.cardMediaWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.favoriteButton {
+  position: relative;
+  top: 40px;
+  left: 220px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+}
