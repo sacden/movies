@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -22,14 +22,30 @@ const Search: React.FC = () => {
   const [searchWord, setSearchWord] = useState("");
   const [favorite, setFavorite] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalResults, setTotalResults] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   const movies = useSelector((state: State) => state.movies);
   const favorites = useSelector((state: State) => state.favorites);
   const dispatch = useDispatch();
 
-  const searchMovies = () => {
-    fetch(`http://omdbapi.com/?apikey=${apiKey}&s=${searchWord}`)
-      .then((response) => response.json())
-      .then((data) => dispatch(getMovies(data)));
+  const fetchMovies = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${searchWord}&page=${currentPage}`);
+      const data = await response.json();
+      if (data.Response === "True") {
+        dispatch(getMovies(data));
+        setTotalResults(parseInt(data.totalResults));
+      } else {
+        dispatch(getMovies([]));
+        setTotalResults(0);
+      }
+    } catch (error) {
+      console.error("Ошибка при загрузке данных:", error);
+    }
+    setLoading(false);
   };
 
   const handleAddToFavorites = (movie: Movie) => {
@@ -43,6 +59,20 @@ const Search: React.FC = () => {
     }
   };
 
+  const totalPages = Math.ceil(totalResults / 10);
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
+  };
+
+  useEffect(() => {
+    fetchMovies();
+  }, [currentPage]);
+
   return (
     <Container maxWidth="md">
       <Link to="/favorites">
@@ -53,7 +83,7 @@ const Search: React.FC = () => {
       <Box sx={{ my: 4 }}>
         <div className={styles.searchBox}>
           <TextField className={styles.textField} style={{ border: "none" }} size="small" label="Search" placeholder="Search" onChange={(e) => setSearchWord(e.target.value)} />
-          <Button className={styles.searchButton} color="primary" variant="outlined" onClick={searchMovies}>
+          <Button className={styles.searchButton} color="primary" variant="outlined" onClick={fetchMovies}>
             Search
           </Button>
         </div>
@@ -87,6 +117,17 @@ const Search: React.FC = () => {
               );
             })}
         </div>
+        {movies.Search && (
+          <div className={styles.pagination}>
+            <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+              Prev
+            </Button>
+            <span>{`Page ${currentPage} / ${totalPages}`}</span>
+            <Button onClick={handleNextPage} disabled={currentPage === totalPages}>
+              Next
+            </Button>
+          </div>
+        )}
       </Box>
     </Container>
   );

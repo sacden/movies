@@ -9,6 +9,7 @@ const reducer = (state = defaultState, action: Action) => {
   switch (action.type) {
     case "GET_MOVIES":
       return { ...state, movies: action.payload };
+
     case "ADD_TO_FAVORITES":
       const updatedFavorites = state.favorites.Search ? [...state.favorites.Search, action.payload] : [action.payload];
       return {
