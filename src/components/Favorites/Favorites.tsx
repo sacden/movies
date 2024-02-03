@@ -17,11 +17,12 @@ function Favorites() {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={() => navigate(-1)}>
-        Back
-      </Button>
       <Container maxWidth="sm">
-        <Box sx={{ my: 4 }}>
+        <Button variant="contained" color="primary" onClick={() => navigate(-1)}>
+          Back
+        </Button>
+        <Box sx={{ my: 4, textAlign: "center" }}>
+          <h1>Favorites</h1>
           {favorites.Search &&
             favorites.Search.map((movie: Movie) => (
               <Card variant="outlined" key={movie.imdbID}>
