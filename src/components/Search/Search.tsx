@@ -13,20 +13,28 @@ import StarRounded from "@mui/icons-material/StarRounded";
 
 import styles from "./Search.module.scss";
 
-import { getMovies, addToFavorites, deleteFromFavorites } from "../../redux/actions";
+import { getMovies, addToFavorites, deleteFromFavorites, getPages, getSearchWord, removeMovies } from "../../redux/actions";
 
 import { Movie, State } from "../../types/types";
 
 const Search: React.FC = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const [searchWord, setSearchWord] = useState("");
+  //const [searchWord, setSearchWord] = useState("");
   const [favorite, setFavorite] = useState(false);
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const movies = useSelector((state: State) => state.movies);
   const favorites = useSelector((state: State) => state.favorites);
+  const page = useSelector((state: State) => state.page);
+  const searchWord = useSelector((state: State) => state.searchWord);
   const dispatch = useDispatch();
+
+  const changeSearchWord = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(getSearchWord(e.target.value));
+    dispatch(removeMovies());
+    dispatch(getPages(1));
+  };
 
   const handleAddToFavorites = (movie: Movie) => {
     const isFavorite = favorites?.Search?.some((favoriteMovie: Movie) => favoriteMovie.imdbID === movie.imdbID);
@@ -56,7 +64,8 @@ const Search: React.FC = () => {
     const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchWord}&page=${page}`);
     const data = await response.json();
     dispatch(getMovies(data));
-    setPage(page + 1);
+    dispatch(getPages(page + 1));
+    //setPage(page + 1);
     setLoading(false);
   };
 
@@ -67,10 +76,9 @@ const Search: React.FC = () => {
           Favorites movies
         </Button>
       </Link>
-      {page}
       <Box sx={{ my: 4 }}>
         <div className={styles.searchBox}>
-          <TextField className={styles.textField} style={{ border: "none" }} size="small" label="Search" placeholder="Search" onChange={(e) => setSearchWord(e.target.value)} />
+          <TextField className={styles.textField} style={{ border: "none" }} size="small" label="Search" onChange={changeSearchWord} value={searchWord} />
           <Button className={styles.searchButton} color="primary" variant="outlined" onClick={fetchMoreItems}>
             Search
           </Button>

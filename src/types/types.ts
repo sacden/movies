@@ -13,6 +13,8 @@ export interface MoviesState {
 export interface State {
   movies: MoviesState;
   favorites: MoviesState;
+  page: number;
+  searchWord: string;
 }
 
 export interface Action {

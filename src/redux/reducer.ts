@@ -3,6 +3,8 @@ import { Movie, State, Action } from "../types/types";
 const defaultState: State = {
   movies: {},
   favorites: {},
+  page: 1,
+  searchWord: "",
 };
 
 const reducer = (state = defaultState, action: Action) => {
@@ -17,6 +19,9 @@ const reducer = (state = defaultState, action: Action) => {
             },
           }
         : { ...state, movies: action.payload };
+
+    case "REMOVE_MOVIES":
+      return { ...state, movies: action.payload };
 
     case "ADD_TO_FAVORITES":
       const updatedFavorites = state.favorites.Search ? [...state.favorites.Search, action.payload] : [action.payload];
@@ -35,6 +40,16 @@ const reducer = (state = defaultState, action: Action) => {
           ...state.favorites,
           Search: updatedFavoritesMovies,
         },
+      };
+    case "GET_PAGES":
+      return {
+        ...state,
+        page: action.payload,
+      };
+    case "GET_SEARCH_WORD":
+      return {
+        ...state,
+        searchWord: action.payload,
       };
     default:
       return state;

@@ -20,3 +20,24 @@ export const deleteFromFavorites = (movie: Movie) => {
     payload: movie,
   };
 };
+
+export const getPages = (page: number) => {
+  return {
+    type: "GET_PAGES",
+    payload: page,
+  };
+};
+
+export const getSearchWord = (word: string) => {
+  return {
+    type: "GET_SEARCH_WORD",
+    payload: word,
+  };
+};
+
+export const removeMovies = () => {
+  return {
+    type: "REMOVE_MOVIES",
+    payload: {},
+  };
+};
