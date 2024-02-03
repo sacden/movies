@@ -2,15 +2,13 @@
   min-width: 100%;
 }
 .textField {
-  width: 80%;
+  width: 75%;
   border: none;
   border-radius: 0.4rem;
   box-shadow: inset 0.1rem 0.1rem 0.3rem #c8d0e7, inset -0.1rem -0.1rem 0.3rem #fff;
   background: none;
   font-family: inherit;
   color: #9baacf;
-  padding-left: 10px;
-  margin-right: 10px;
 }
 
 .searchButton {
@@ -38,17 +36,13 @@
 .cardMediaWrapper {
   position: relative;
   background-color: #eff0f4;
+  margin-top: -42px;
+  height: 360px;
 }
 
 .MuiCardMedia {
   width: 100%;
   height: auto;
-}
-
-.cardMediaWrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
 }
 
 .favoriteButton {

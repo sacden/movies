@@ -6,7 +6,7 @@ import styles from "./Search.module.scss";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import CustomButton from "../Common/CustomButton/CustomButton";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
@@ -49,7 +49,8 @@ const Search: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isBottom = window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight;
+      const scrollOffset = 100;
+      const isBottom = window.innerHeight + document.documentElement.scrollTop + scrollOffset >= document.documentElement.offsetHeight;
       if (isBottom && !loading) {
         fetchMovies();
       }
@@ -83,16 +84,34 @@ const Search: React.FC = () => {
   return (
     <Container maxWidth="md">
       <Link to="/favorites">
-        <Button variant="contained" color="primary">
-          Favorites movies
-        </Button>
+        <CustomButton>Favorite movies</CustomButton>
       </Link>
       <Box sx={{ my: 4 }}>
         <div className={styles.searchBox}>
-          <TextField className={styles.textField} style={{ border: "none" }} size="small" label="Search" onChange={changeSearchWord} value={searchWord} />
-          <Button className={styles.searchButton} color="primary" variant="outlined" onClick={fetchMovies}>
-            Search
-          </Button>
+          <TextField
+            className={styles.textField}
+            sx={{
+              border: "none",
+              marginRight: "20px",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "transparent",
+                },
+                "&:hover fieldset": {
+                  borderColor: "transparent",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "transparent",
+                },
+                color: "#9baacf",
+              },
+            }}
+            size="small"
+            label="Search"
+            onChange={changeSearchWord}
+            value={searchWord}
+          />
+          <CustomButton onClick={fetchMovies}>Search</CustomButton>
         </div>
 
         <div className={styles.cardsContainer}>
