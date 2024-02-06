@@ -1,30 +1,34 @@
-# React + TypeScript + Vite
+<p align="center">
+      <img src="https://i.ibb.co/8MR6ycD/movies.jpg" width="1000" alt='Project Logo'>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+   <img alt="Vite version" src="https://img.shields.io/badge/Vite-v5.0.8-blueviolet">
+   <img alt="App version" src="https://img.shields.io/badge/Version-v1.0 (Alpha)-blue">
+   <img alt="Redux version" src="https://img.shields.io/badge/Redux-5.0.1-red">
+   <img alt="Typescript version" src="https://img.shields.io/badge/Typescript-v5.2.2-yellow">
+   <img alt="Material UI" src="https://img.shields.io/badge/Material-UI-v5.15.7-orange">
+   <img alt="SASS" src="https://img.shields.io/badge/SASS-v1.70.0-white">
+   <img alt="License" src="https://img.shields.io/badge/License-MIT-green">
+</p>
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This React-based application, enhanced with Redux, TypeScript, Material-UI, and SASS, comprises three pages: Search, MovieDetail, and Favorites. It enables users to dynamically search for movies, view details, save favorites in bookmarks, and enjoy infinite scrolling within a responsive layout. It's an efficient, user-friendly platform for movie exploration.
 
-## Expanding the ESLint configuration
+## Documentation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **-** **`git clone git@github.com:sacden/movies.git`** - Clone the project
+- **-** **`Create a file .env`** - In root folder of the project, insert: VITE_API_KEY=12dbe7d7 and save it.
+- **-** **`npm install`** - Install dependencies
+- **-** **`npm run dev`** - Start server
 
-- Configure the top-level `parserOptions` property like this:
+Open http://localhost:5173/
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Developers
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- [Denis Šachmajev](https://github.com/sacden)
+
+## License
+
+Project Employee List is distributed under the MIT license

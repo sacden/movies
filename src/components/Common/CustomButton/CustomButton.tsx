@@ -10,6 +10,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, onClick }) => {
     <Button
       color="primary"
       variant="outlined"
+      type="button"
       sx={{
         boxShadow: "0.1rem 0.1rem 0.1rem #c8d0e7, -0.1rem -0.1rem 0.3rem #fff",
         color: "#9baacf",
