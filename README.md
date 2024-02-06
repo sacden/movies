@@ -7,7 +7,7 @@
    <img alt="App version" src="https://img.shields.io/badge/Version-v1.0 (Alpha)-blue">
    <img alt="Redux version" src="https://img.shields.io/badge/Redux-5.0.1-red">
    <img alt="Typescript version" src="https://img.shields.io/badge/Typescript-v5.2.2-yellow">
-   <img alt="Material UI" src="https://img.shields.io/badge/Material-UI-v5.15.7-orange">
+   <img alt="Material UI" src="https://img.shields.io/badge/MaterialUi-v5.15.7-orange">
    <img alt="SASS" src="https://img.shields.io/badge/SASS-v1.70.0-white">
    <img alt="License" src="https://img.shields.io/badge/License-MIT-green">
 </p>
