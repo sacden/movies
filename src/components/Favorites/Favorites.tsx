@@ -7,7 +7,6 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import CardHeader from "@mui/material/CardHeader";
 import CustomButton from "../Common/CustomButton/CustomButton";
 
 import { Movie, State } from "../../types/types";

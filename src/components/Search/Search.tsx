@@ -13,29 +13,33 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import StarRounded from "@mui/icons-material/StarRounded";
 
-import { getMovies, addToFavorites, deleteFromFavorites, getPages, getSearchWord, removeMovies } from "../../redux/actions";
+import { addToFavorites, deleteFromFavorites, getPages, getSearchWord, removeMovies } from "../../redux/actions";
 
 import { Movie, State } from "../../types/types";
 
-import { API_URL } from "../../constants/common";
+import useFetchMovies from "../../hooks/useFetchMovies";
 
 const Search: React.FC = () => {
-  const apiKey = import.meta.env.VITE_API_KEY;
-  const [favorite, setFavorite] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const apiKey = import.meta.env.VITE_API_KEY; // API key for movie database
+  const [favorite, setFavorite] = useState(false); // Local state to track favorite status
 
+  // Selectors to access state from the Redux store
   const movies = useSelector((state: State) => state.movies);
   const favorites = useSelector((state: State) => state.favorites);
   const page = useSelector((state: State) => state.page);
   const searchWord = useSelector((state: State) => state.searchWord);
   const dispatch = useDispatch();
 
+  const { fetchMovies, loading } = useFetchMovies(); // Custom hook to fetch movies
+
+  // Updates search word in global state and resets movies and page number
   const changeSearchWord = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(getSearchWord(e.target.value));
     dispatch(removeMovies());
     dispatch(getPages(1));
   };
 
+  // Toggles movie's favorite status
   const handleAddToFavorites = (movie: Movie) => {
     const isFavorite = favorites?.Search?.some((favoriteMovie: Movie) => favoriteMovie.imdbID === movie.imdbID);
     if (isFavorite) {
@@ -47,38 +51,25 @@ const Search: React.FC = () => {
     }
   };
 
+  // Handles infinite scroll, fetching more movies when reaching the bottom of the page
   useEffect(() => {
     const handleScroll = () => {
       const scrollOffset = 100;
       const isBottom = window.innerHeight + document.documentElement.scrollTop + scrollOffset >= document.documentElement.offsetHeight;
       if (isBottom && !loading) {
-        fetchMovies();
+        const newPage = page + 1;
+        dispatch(getPages(newPage));
+        fetchMovies({ apiKey, searchWord, page: newPage });
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading]);
+  }, [loading, page, fetchMovies, apiKey, searchWord, dispatch]);
 
-  const fetchMovies = async () => {
-    try {
-      setLoading(true);
-
-      const response = await fetch(`${API_URL}?apikey=${apiKey}&s=${searchWord}&page=${page}`);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      dispatch(getMovies(data));
-      dispatch(getPages(page + 1));
-    } catch (error) {
-      console.error("Failed to fetch items:", error);
-    } finally {
-      setLoading(false);
-    }
+  // Initiates movie fetching when you click on a button Search
+  const handleFetchMovies = () => {
+    fetchMovies({ apiKey, searchWord, page });
   };
 
   return (
@@ -111,7 +102,7 @@ const Search: React.FC = () => {
             onChange={changeSearchWord}
             value={searchWord}
           />
-          <CustomButton onClick={fetchMovies}>Search</CustomButton>
+          <CustomButton onClick={handleFetchMovies}>Search</CustomButton>
         </div>
 
         <div className={styles.cardsContainer}>
